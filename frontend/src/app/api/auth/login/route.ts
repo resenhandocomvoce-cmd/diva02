@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
     const token = jwt.sign(
       { id: user.id, tipo: user.tipo, email: user.email },
-      process.env.JWT_SECRET!,
+      process.env.JWT_SECRET || 'centraldivas2024secretkey',
       { expiresIn: '7d' }
     );
 
