@@ -6,48 +6,40 @@ Plataforma SaaS para grupos de engajamento do Instagram.
 
 - **Frontend**: Next.js 14 + TailwindCSS + TypeScript
 - **Backend**: Node.js + Express
-- **Banco de Dados**: PostgreSQL
+- **Banco de Dados**: PostgreSQL (Supabase)
 - **Autenticação**: JWT
 
 ## 📋 Pré-requisitos
 
 - Node.js 18+
-- PostgreSQL 14+
+- Conta no Supabase
+- Conta na Vercel
 
-## 🔧 Instalação
+## 🔧 Configuração
 
-### 1. Banco de Dados
+### 1. Supabase
 
-```bash
-# Criar banco de dados
-psql -U postgres -c "CREATE DATABASE central_divas;"
-
-# Executar schema
-psql -U postgres -d central_divas -f database/schema.sql
-```
+Copie o código do arquivo `database/schema.sql` e execute no editor SQL do Supabase.
 
 ### 2. Backend
 
-```bash
-cd backend
-cp .env.example .env
-# Edite o arquivo .env com suas configurações
+Edite o arquivo `backend/.env` com as credenciais do Supabase:
 
-npm install
-npm run dev
+```env
+PORT=3001
+DB_HOST=seu-projeto.supabase.co
+DB_PORT=5432
+DB_NAME=postgres
+DB_USER=postgres
+DB_PASSWORD=sua-senha
+JWT_SECRET=sua-chave-secreta
 ```
 
-### 3. Frontend
+### 3. Deploy
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+O projeto está pronto para deploy na Vercel!
 
 ## 🔐 Usuário Padrão
-
-O sistema cria automaticamente um Super Admin:
 
 - **Email**: admin@centraldivas.com
 - **Senha**: admin123
@@ -55,68 +47,23 @@ O sistema cria automaticamente um Super Admin:
 ## 📁 Estrutura
 
 ```
-├── backend/
-│   ├── src/
-│   │   ├── config/     # Configurações
-│   │   ├── controllers/# Lógica de negócio
-│   │   ├── middleware/ # Autenticação
-│   │   ├── models/    # Modelos (futuro)
-│   │   ├── routes/    # Rotas da API
-│   │   └── index.js   # Servidor
-│   └── package.json
-│
-├── frontend/
-│   ├── src/
-│   │   ├── app/       # Páginas Next.js
-│   │   ├── components/# Componentes
-│   │   ├── contexts/  # Contextos React
-│   │   ├── lib/       # Utilitários
-│   │   └── types/     # Tipos TypeScript
-│   └── package.json
-│
-└── database/
-    └── schema.sql     # Schema do banco
+├── backend/          # API Node.js + Express
+├── frontend/         # Next.js 14
+└── database/        # Schema SQL
 ```
-
-## 🔗 API Endpoints
-
-### Auth
-- `POST /api/auth/register` - Cadastro
-- `POST /api/auth/login` - Login
-
-### Users
-- `GET /api/users` - Listar usuários
-- `GET /api/users/:id` - Ver usuário
-- `PUT /api/users/:id` - Atualizar usuário
-- `GET /api/users/stats` - Estatísticas
-
-### Posts
-- `GET /api/posts` - Listar posts
-- `GET /api/posts/today` - Posts de hoje
-- `POST /api/posts` - Criar post (admin)
-- `DELETE /api/posts/:id` - Excluir post
-
-### Tarefas
-- `GET /api/tarefas` - Listar tarefas
-- `POST /api/tarefas` - Criar tarefa (admin)
-
-### Conclusões
-- `POST /api/conclusoes/complete` - Completar tarefa
-- `GET /api/conclusoes/progress` - Ver progresso
 
 ## 👥 Tipos de Usuários
 
 | Tipo | Descrição |
 |------|-----------|
-| superadmin | Acesso total ao sistema |
-| admin | Gerencia participantes e posts |
-| user | Participante do grupo |
+| superadmin | Acesso total |
+| admin | Gerência |
+| user | Participante |
 
 ## 🎨 Design
 
 - Cores: Rosa, Nude, Branco
 - Interface estilo SaaS moderna
-- Layout responsivo
 
 ## 📝 Licença
 
