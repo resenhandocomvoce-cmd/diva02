@@ -1,6 +1,7 @@
+export const dynamic = 'force-dynamic';
+
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import pool from '@/lib/db';
 
 export async function POST(request: Request) {
@@ -27,16 +28,9 @@ export async function POST(request: Request) {
       [nome || email.split('@')[0], email, whatsapp || null, hashedSenha, 'user', 'pendente']
     );
 
-    const token = jwt.sign(
-      { id: result.rows[0].id, tipo: result.rows[0].tipo, email: result.rows[0].email },
-      process.env.JWT_SECRET!,
-      { expiresIn: '7d' }
-    );
-
     return NextResponse.json({
       message: 'Cadastro realizado! Aguarde aprovação.',
-      user: result.rows[0],
-      token
+      user: result.rows[0]
     }, { status: 201 });
   } catch (error) {
     console.error('Erro:', error);
