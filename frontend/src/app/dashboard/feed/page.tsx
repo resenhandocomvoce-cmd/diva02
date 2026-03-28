@@ -17,7 +17,7 @@ const sidebarItems = [
 
 export default function FeedPage() {
   const [postsToday, setPostsToday] = useState<Post[]>([]);
-  const [tarefas, setTarefas] = useState<Tarefa[]>([]);
+  const [tarefasList, setTarefasList] = useState<Tarefa[]>([]);
   const [loading, setLoading] = useState(true);
   const [completing, setCompleting] = useState<string | null>(null);
 
@@ -32,7 +32,7 @@ export default function FeedPage() {
         tarefas.getAll({ ativa: true }),
       ]);
       setPostsToday(postsRes.data);
-      setTarefas(tarefasRes.data);
+      setTarefasList(tarefasRes.data);
     } catch (error) {
       console.error('Erro ao carregar dados:', error);
     } finally {
@@ -102,7 +102,7 @@ export default function FeedPage() {
                   <div className="border-t border-rose-100 pt-4">
                     <h4 className="text-sm font-medium text-gray-700 mb-3">Tarefas:</h4>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                      {tarefas.map((tarefa) => {
+                      {tarefasList.map((tarefa) => {
                         const concluida = isConcluida(post.id, tarefa.id);
                         return (
                           <button
