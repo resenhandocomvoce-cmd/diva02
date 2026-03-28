@@ -1,7 +1,6 @@
 export const dynamic = 'force-dynamic';
 
 import { NextResponse } from 'next/server';
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import pool from '@/lib/db';
 
@@ -21,9 +20,9 @@ export async function POST(request: Request) {
     }
 
     const user = result.rows[0];
-    const validSenha = await bcrypt.compare(senha, user.senha);
 
-    if (!validSenha) {
+    // Comparar senha simples (sem bcrypt por agora)
+    if (senha !== user.senha) {
       return NextResponse.json({ error: 'Email ou senha incorretos.' }, { status: 401 });
     }
 
@@ -47,8 +46,8 @@ export async function POST(request: Request) {
         penalidades: user.penalidades
       }
     });
-  } catch (error) {
-    console.error('Erro:', error);
-    return NextResponse.json({ error: 'Erro ao fazer login.' }, { status: 500 });
+  } catch (error: any) {
+    console.error('Erro no login:', error);
+    return NextResponse.json({ error: 'Erro ao fazer login: ' + error.message }, { status: 500 });
   }
 }
