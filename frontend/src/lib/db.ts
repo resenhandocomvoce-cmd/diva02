@@ -9,7 +9,6 @@ const connectionString = `postgresql://postgres:${encodedPassword}@${host}:${por
 const pool = new Pool({
   connectionString,
   ssl: { rejectUnauthorized: false },
-  family: 4,
 });
 
 export default pool;
